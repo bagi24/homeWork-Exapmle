@@ -22,6 +22,7 @@ function App() {
   // console.log(quantityInputValue);
   // console.log(productionInputValue);
   const ItemsCon = document.querySelector('.itemsConteiner');
+  const itemsC = document.querySelector('.itemsC');
 
   const handleButton = () => {
     // console.log('clicked')
@@ -50,14 +51,23 @@ function App() {
   };
 
   const handlebtnPlus = id => {
-    console.log(id);
+    // console.log(id);
     setBoxValue(boxValue + 1);
     // todos.map(todo => { return (todo.id === id ? (todo.quantity -= 1) : null) })
 
+    //ამას ვერ გავუგე ....
     todos.map(todo => {
-      if (todo.id === id) {
+      if (todo.id === id && todo.quantity >= 1) {
         todo.quantity -= 1;
+        // console.log(todo.quantity)
+      } else if (todo.quantity === 0) {
+        itemsC.remove();
+        console.log(todo.quantity);
       }
+
+      // if (todo.id === id && todo.quantity === 0) {
+      //   itemsC.remove();
+      // }
 
       // ესააა გამოსასწორებელი....
       // if (todo.id === id && todo.quantity <= 0) {
