@@ -8,7 +8,7 @@ function App() {
   const [productionInputValue, setProductionInputValue] = useState('');
   // const [validProduction, setValidProduction] = useState('');
 
-  const [btnValue, setBtnValue] = useState(false);
+  // const [btnValue, setBtnValue] = useState(false);
   // const [btn2Value, setBtn2Value] = useState(false);
 
   const [todos, setTodos] = useState([]);
@@ -22,35 +22,17 @@ function App() {
   // console.log(quantityInputValue);
   // console.log(productionInputValue);
   const ItemsCon = document.querySelector('.itemsConteiner');
-  const itemsC = document.querySelector('.itemsC');
 
   const handleButton = () => {
     // console.log('clicked')
 
-    ItemsCon.style.display = 'block';
-    // ესააა გამოსასწორებელი....
     if (
       prodactInputValue.length === 0 ||
       quantityInputValue.length === 0 ||
       productionInputValue.length === 0
     ) {
-      // setValidProdact('შეავსეთ ველი');
-      // setValidQuantity('ესეც შესავსებია');
-      // setValidProduction('ესეც ასევე');
-
-      setBtnValue(true);
-    } 
-    
-    
-    
-    if (
-    
-      prodactInputValue.length > 0 &&
-      quantityInputValue.length > 0 &&
-      productionInputValue.length > 0
-    ) {
-      setBtnValue(false);
-
+    } else {
+      ItemsCon.style.display = 'block';
 
       const newItems = {
         id: Math.random() * 100,
@@ -58,16 +40,13 @@ function App() {
         quantity: quantityInputValue,
         production: productionInputValue,
       };
-  
+
       setTodos(oldItems => [...oldItems, newItems]);
-  
+
       setProdactInputValue('');
       setQuantityInputValue('');
       setProductionInputValue('');
-      
     }
-
-    
   };
 
   const handlebtnPlus = id => {
@@ -136,7 +115,7 @@ function App() {
             )}
           </div>
 
-          <button disabled={btnValue} onClick={handleButton} className='button'>
+          <button onClick={handleButton} className='button'>
             ADD
           </button>
         </div>
