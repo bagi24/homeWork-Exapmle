@@ -9,6 +9,8 @@ function App() {
   const [productionInputValue, setProductionInputValue] = useState('');
 
   const [editValue, setEditValue] = useState([]);
+  const [editText, setEditText] = useState('ADD');
+  console.log(editValue);
 
   // const [validProduction, setValidProduction] = useState('');
 
@@ -32,9 +34,17 @@ function App() {
   const label2 = document.querySelector('.label2');
   const label3 = document.querySelector('.label3');
 
-  const handleButton = () => {
-    // console.log('clicked')
+  const updateInfo = (id, prodact, quantity, production) => {
+    const TodoUpdate = todos.map(todo =>
+      todo.id === id ? { prodact, quantity, production } : todo
+    );
 
+    console.log(TodoUpdate);
+
+    // setTodos(TodoUpdate);
+  };
+
+  const handleButton = () => {
     if (
       (validValues && prodactInputValue.length <= 0) ||
       (validValues && quantityInputValue.length <= 0) ||
@@ -43,7 +53,7 @@ function App() {
       label1.innerText = 'ველი უნდა იყოს შევსებული';
       label2.innerText = 'ველი უნდა იყოს შევსებული';
       label3.innerText = 'ველი უნდა იყოს შევსებული';
-    } else {
+    } else if (editText === 'ADD') {
       label1.innerText = '';
       label2.innerText = '';
       label3.innerText = '';
@@ -63,6 +73,9 @@ function App() {
       setProdactInputValue('');
       setQuantityInputValue('');
       setProductionInputValue('');
+    } else if (editText === 'EDIT') {
+      console.log('edit');
+      setEditText('ADD');
     }
   };
 
@@ -109,7 +122,8 @@ function App() {
     setProductionInputValue(editTask.production);
 
     setEditValue(editTask);
-    console.log(editValue);
+
+    setEditText('EDIT');
   };
 
   return (
@@ -160,7 +174,7 @@ function App() {
           </div>
 
           <button onClick={handleButton} className='button'>
-            ADD
+            {editText === 'ADD' ? 'ADD' : 'EDIT'}
           </button>
         </div>
 
