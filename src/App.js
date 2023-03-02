@@ -4,8 +4,12 @@ function App() {
   const [prodactInputValue, setProdactInputValue] = useState('');
   const [validValues, setValidValues] = useState(true);
   const [quantityInputValue, setQuantityInputValue] = useState('');
+  const [priceValue, setPriceValue] = useState('');
   // const [validQuantity, setValidQuantity] = useState('');
   const [productionInputValue, setProductionInputValue] = useState('');
+
+  const [editValue, setEditValue] = useState([]);
+
   // const [validProduction, setValidProduction] = useState('');
 
   // const [btnValue, setBtnValue] = useState(false);
@@ -50,6 +54,7 @@ function App() {
         id: Math.random() * 100,
         prodact: prodactInputValue,
         quantity: quantityInputValue,
+        price: (priceValue + Math.floor(Math.random() * 100)) * quantityInputValue,
         production: productionInputValue,
       };
 
@@ -78,7 +83,7 @@ function App() {
         return t;
       });
 
-      setTodos(updatedTodo);
+      setTodos();
     } else {
       let filteredData = todos.filter(t => t.id !== todo.id || t.quantity > 1);
       setTodos(filteredData);
@@ -94,6 +99,17 @@ function App() {
     //   // setBtn2Value(true);
     //   itemsC.remove();
     // }
+  };
+
+  const handleEdit = id => {
+    const editTask = todos.find(todo => todo.id === id);
+
+    setProdactInputValue(editTask.prodact);
+    setQuantityInputValue(editTask.quantity);
+    setProductionInputValue(editTask.production);
+
+    setEditValue(editTask);
+    console.log(editValue);
   };
 
   return (
@@ -115,13 +131,21 @@ function App() {
           <input
             onChange={e => setQuantityInputValue(e.target.value)}
             value={quantityInputValue}
-            type='text'
+            type='number'
             id='quantity'
           />
 
           <div className='valid'>
             <label className='label2'> </label>
           </div>
+
+          {/* <label htmlFor='price'> Price </label>
+          <input
+            onChange={e => setPriceValue(e.target.value)}
+            value={priceValue}
+            type='number'
+            id='price'
+          /> */}
 
           <label htmlFor='production'> Production Country </label>
           <input
@@ -150,8 +174,13 @@ function App() {
               <ul>
                 <li> Prodact: {todo.prodact}</li>
                 <li> Quantity: {todo.quantity}</li>
+                <li> Price: {todo.price} ლარი </li>
                 <li> Production Country: {todo.production}</li>
               </ul>
+
+              <button onClick={() => handleEdit(todo.id)} className='btn1'>
+                რედაქტირება
+              </button>
 
               <button onClick={() => handlebtnPlus(todo)} className='btn2'>
                 დაამატე კალათაში
