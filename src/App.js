@@ -12,6 +12,10 @@ function App() {
   const [editText, setEditText] = useState('ADD');
   // console.log(editValue);
 
+  const [idValue, setIdValue] = useState(null);
+
+  console.log(idValue);
+
   // const [validProduction, setValidProduction] = useState('');
 
   // const [btnValue, setBtnValue] = useState(false);
@@ -34,15 +38,18 @@ function App() {
   const label2 = document.querySelector('.label2');
   const label3 = document.querySelector('.label3');
 
-  const updateInfo = ({id, prodact, quantity, production}) => {
+  const id = Math.floor(Math.random() * 100);
+  const price = (priceValue + Math.floor(Math.random() * 100)) * quantityInputValue;
+
+  const updateInfo = (idValue, prodact, quantity, price, production) => {
+    console.log(idValue, prodact, quantity, price, production);
     const TodoUpdate = todos.map(todo =>
-      todo.id === id ? { id, prodact, quantity, production } : todo
+      todo.id === idValue ? { idValue, prodact, quantity, price, production } : todo
     );
 
-    // console.log(id, prodact, quantity, production);
     console.log(TodoUpdate);
 
-    // setTodos(TodoUpdate);
+    setTodos(TodoUpdate);
 
     setProdactInputValue('');
     setQuantityInputValue('');
@@ -66,10 +73,10 @@ function App() {
       ItemsCon.style.display = 'block';
 
       const newItems = {
-        id: Math.random() * 100,
+        id: id,
         prodact: prodactInputValue,
         quantity: quantityInputValue,
-        price: (priceValue + Math.floor(Math.random() * 100)) * quantityInputValue,
+        price: price,
         production: productionInputValue,
       };
 
@@ -82,7 +89,7 @@ function App() {
       // console.log('edit');
       setEditText('ADD');
 
-      updateInfo(prodactInputValue, quantityInputValue, productionInputValue, editValue.id);
+      updateInfo(idValue, prodactInputValue, quantityInputValue, price, productionInputValue);
     }
   };
 
@@ -103,7 +110,7 @@ function App() {
         return t;
       });
 
-      setTodos();
+      setTodos(updatedTodo);
     } else {
       let filteredData = todos.filter(t => t.id !== todo.id || t.quantity > 1);
       setTodos(filteredData);
@@ -129,6 +136,7 @@ function App() {
     setProductionInputValue(editTask.production);
 
     setEditValue(editTask);
+    setIdValue(id);
 
     setEditText('EDIT');
   };
