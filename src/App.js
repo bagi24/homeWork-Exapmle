@@ -10,7 +10,7 @@ function App() {
 
   const [editValue, setEditValue] = useState([]);
   const [editText, setEditText] = useState('ADD');
-  console.log(editValue);
+  // console.log(editValue);
 
   // const [validProduction, setValidProduction] = useState('');
 
@@ -19,7 +19,7 @@ function App() {
 
   const [todos, setTodos] = useState([]);
 
-  console.log(todos);
+  // console.log(todos);
 
   const [boxValue, setBoxValue] = useState(0);
   // const ItemsCon = document.querySelector('.itemsConteiner');
@@ -34,14 +34,19 @@ function App() {
   const label2 = document.querySelector('.label2');
   const label3 = document.querySelector('.label3');
 
-  const updateInfo = (id, prodact, quantity, production) => {
+  const updateInfo = ({id, prodact, quantity, production}) => {
     const TodoUpdate = todos.map(todo =>
-      todo.id === id ? { prodact, quantity, production } : todo
+      todo.id === id ? { id, prodact, quantity, production } : todo
     );
 
+    // console.log(id, prodact, quantity, production);
     console.log(TodoUpdate);
 
     // setTodos(TodoUpdate);
+
+    setProdactInputValue('');
+    setQuantityInputValue('');
+    setProductionInputValue('');
   };
 
   const handleButton = () => {
@@ -74,8 +79,10 @@ function App() {
       setQuantityInputValue('');
       setProductionInputValue('');
     } else if (editText === 'EDIT') {
-      console.log('edit');
+      // console.log('edit');
       setEditText('ADD');
+
+      updateInfo(prodactInputValue, quantityInputValue, productionInputValue, editValue.id);
     }
   };
 
