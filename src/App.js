@@ -5,34 +5,19 @@ function App() {
   const [validValues, setValidValues] = useState(true);
   const [quantityInputValue, setQuantityInputValue] = useState('');
   const [priceValue, setPriceValue] = useState('');
-  // const [validQuantity, setValidQuantity] = useState('');
+
   const [productionInputValue, setProductionInputValue] = useState('');
 
   const [editValue, setEditValue] = useState([]);
   const [editText, setEditText] = useState('ADD');
-  // console.log(editValue);
 
   const [idValue, setIdValue] = useState(null);
 
-  console.log(idValue);
-
-  // const [validProduction, setValidProduction] = useState('');
-
-  // const [btnValue, setBtnValue] = useState(false);
-  // const [btn2Value, setBtn2Value] = useState(false);
-
   const [todos, setTodos] = useState([]);
 
-  // console.log(todos);
-
   const [boxValue, setBoxValue] = useState(0);
-  // const ItemsCon = document.querySelector('.itemsConteiner');
 
-  // console.log(prodactInputValue);
-  // console.log(quantityInputValue);
-  // console.log(productionInputValue);
   const ItemsCon = document.querySelector('.itemsConteiner');
-  const itemsC = document.querySelector('.itemsC');
 
   const label1 = document.querySelector('.label1');
   const label2 = document.querySelector('.label2');
@@ -42,7 +27,6 @@ function App() {
   const price = (priceValue + Math.floor(Math.random() * 100)) * quantityInputValue;
 
   const updateInfo = (idValue, prodact, quantity, price, production) => {
-    console.log(idValue, prodact, quantity, price, production);
     const TodoUpdate = todos.map(todo =>
       todo.id === idValue ? { idValue, prodact, quantity, price, production } : todo
     );
@@ -86,7 +70,6 @@ function App() {
       setQuantityInputValue('');
       setProductionInputValue('');
     } else if (editText === 'EDIT') {
-      // console.log('edit');
       setEditText('ADD');
 
       updateInfo(idValue, prodactInputValue, quantityInputValue, price, productionInputValue);
@@ -94,11 +77,8 @@ function App() {
   };
 
   const handlebtnPlus = todo => {
-    // console.log(id);
     setBoxValue(boxValue + 1);
-    // todos.map(todo => { return (todo.id === id ? (todo.quantity -= 1) : null) })
 
-    //ამას ვერ გავუგე ....
     if (todo.quantity > 0) {
       const updatedTodo = todos.map(t => {
         if (t.id === todo.id) {
@@ -115,17 +95,12 @@ function App() {
       let filteredData = todos.filter(t => t.id !== todo.id || t.quantity > 1);
       setTodos(filteredData);
     }
+  };
 
-    // if (todo.id === id && todo.quantity === 0) {
-    //   itemsC.remove();
-    // }
+  const handleDelete = id => {
+    const deleteEl = todos.filter(todo => todo.id !== id);
 
-    // ესააა გამოსასწორებელი....
-    // if (todo.id === id && todo.quantity <= 0) {
-    //   console.log('egaa');
-    //   // setBtn2Value(true);
-    //   itemsC.remove();
-    // }
+    setTodos(deleteEl);
   };
 
   const handleEdit = id => {
@@ -168,14 +143,6 @@ function App() {
             <label className='label2'> </label>
           </div>
 
-          {/* <label htmlFor='price'> Price </label>
-          <input
-            onChange={e => setPriceValue(e.target.value)}
-            value={priceValue}
-            type='number'
-            id='price'
-          /> */}
-
           <label htmlFor='production'> Production Country </label>
           <input
             onChange={e => setProductionInputValue(e.target.value)}
@@ -209,6 +176,10 @@ function App() {
 
               <button onClick={() => handleEdit(todo.id)} className='btn1'>
                 რედაქტირება
+              </button>
+
+              <button onClick={() => handleDelete(todo.id)} className='btnDelete'>
+                წაშლა
               </button>
 
               <button onClick={() => handlebtnPlus(todo)} className='btn2'>

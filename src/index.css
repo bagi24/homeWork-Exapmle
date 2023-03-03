@@ -54,6 +54,11 @@
   color: black;
 }
 
+.btnDelete {
+  background-color: lightcoral;
+  color: black;
+}
+
 li {
   text-decoration: none;
   list-style-type: none;
